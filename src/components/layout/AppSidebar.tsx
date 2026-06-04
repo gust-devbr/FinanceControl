@@ -10,7 +10,7 @@ import {
     SidebarMenuButton,
 } from "@/components/ui/sidebar"
 import {
-    User2,
+    Cog,
     Wallet,
     LogOut,
     LucideIcon,
@@ -46,7 +46,7 @@ export function AppSidebar() {
     const routes: Routes[] = [
         { name: "Finanças", href: "/screens/home", icon: Wallet },
         { name: "Categorias", href: "/screens/category", icon: BringToFront },
-        { name: "Perfil", href: "/screens/profile", icon: User2 },
+        { name: "Configurações", href: "/screens/settings", icon: Cog },
     ]
 
     return (
@@ -66,9 +66,9 @@ export function AppSidebar() {
 
                             return (
                                 <SidebarMenuItem key={route.href}>
-                                    {(route.href === "/screens/profile" && !isCollapsed) && (
-                                        <div className="mt-4">
-                                            <p>Configurações</p>
+                                    {(route.href === "/screens/settings" && !isCollapsed) && (
+                                        <div className="my-2">
+                                            <Separator />
                                         </div>
                                     )}
                                     <SidebarMenuButton
