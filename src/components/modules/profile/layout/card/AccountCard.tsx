@@ -127,6 +127,7 @@ export function AccountCard() {
                 {isDirty && (
                     <CardFooter className="bg-slate-700 justify-end gap-2">
                         <Button
+                            type="button"
                             variant="secondary"
                             onClick={() => reset()}
                             disabled={isSubmitting}
