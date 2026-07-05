@@ -2,16 +2,7 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { AppSidebar } from "@/components/layout/AppSidebar"
 import { TooltipProvider } from "@/components/ui/tooltip"
 
-import { redirect } from "next/navigation"
-import { getToken } from "@/utils/auth"
-
 export default async function PrivateLayout({ children }: { children: React.ReactNode }) {
-    const token = await getToken()
-
-    if (!token) {
-        redirect("/screens/login")
-    }
-
     return (
         <>
             <TooltipProvider>
