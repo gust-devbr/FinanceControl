@@ -59,7 +59,7 @@ export function DataTableFinance<TData, TValue>({
     return (
         <>
             <div className="flex items-center py-4">
-                <InputGroup className="max-w-[30%]">
+                <InputGroup className="md:max-w-[30%]">
                     <InputGroupAddon>
                         <Search />
                     </InputGroupAddon>
@@ -122,7 +122,8 @@ export function DataTableFinance<TData, TValue>({
                                     </TableBody>
                                 </Table>
 
-                                <ScrollBar orientation="vertical" />
+                                <ScrollBar orientation="vertical" hidden />
+                                <ScrollBar orientation="horizontal" hidden />
                             </ScrollArea>
                         </Card>
                     )}
