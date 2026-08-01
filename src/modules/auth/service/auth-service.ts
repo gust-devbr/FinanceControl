@@ -1,9 +1,8 @@
-import jwt from "jsonwebtoken"
 import { Password } from "@/utils/class/Password";
+import { ResponseUser } from "@/utils/class/ResponseUser";
 
 import { UserRepository } from "@/modules/user/repository/user-repository";
 import type { LoginSchemaType, RegisterSchemaType } from "../schemas/auth-schema";
-
 export class AuthService {
     constructor(private readonly repository = new UserRepository()) { }
 
@@ -20,13 +19,7 @@ export class AuthService {
             ...rest
         })
 
-        const token = jwt.sign(
-            { id: user.id },
-            process.env.JWT_SECRET!,
-            { expiresIn: "7d" }
-        )
-
-        return { user, token }
+        return ResponseUser.from(user)
     }
 
     async login(body: LoginSchemaType) {
@@ -39,16 +32,6 @@ export class AuthService {
         if (!(await Password.compare(body.password, exists.password)))
             throw new Error("Credenciais inválidas")
 
-
-        const token = jwt.sign(
-            { id: exists.id },
-            process.env.JWT_SECRET!,
-            { expiresIn: "7d" }
-        )
-
-        return {
-            user: exists,
-            token
-        }
+        return ResponseUser.from(exists)
     }
 }

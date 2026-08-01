@@ -4,19 +4,19 @@ import { Response } from "@/utils/class/Response";
 import * as schema from "../schemas/category-schema";
 import { CategoryService } from "../service/category-service";
 
-import { getToken } from "@/utils/auth";
+import { getSessionToken } from "@/lib/auth/session";
 
 export class CategoryController {
     constructor(private readonly service = new CategoryService()) { }
 
-    async getHandler(req: NextRequest) {
+    async getHandler() {
         try {
-            const user = await getToken(req)
-            if (!user)
+            const userId = await getSessionToken()
+            if (!userId)
                 return Response.error("Não autorizado", 401)
 
             const categories =
-                await this.service.getAll(user.id)
+                await this.service.getAll(userId)
 
             return Response.success(categories)
         } catch (error) {
@@ -26,15 +26,15 @@ export class CategoryController {
 
     async postHandler(req: NextRequest) {
         try {
-            const user = await getToken(req)
-            if (!user)
+            const userId = await getSessionToken()
+            if (!userId)
                 return Response.error("Não autorizado", 401)
 
             const body =
                 schema.createCategorySchema.parse(await req.json())
 
             const category =
-                await this.service.create(user.id, body)
+                await this.service.create(userId, body)
 
             return Response.success({ category }, "Categoria criada", 201)
         } catch (error) {
@@ -44,8 +44,8 @@ export class CategoryController {
 
     async putHandler(req: NextRequest, params: { id: string }) {
         try {
-            const user = await getToken(req)
-            if (!user)
+            const userId = await getSessionToken()
+            if (!userId)
                 return Response.error("Não autorizado", 401)
 
             if (!params.id)
@@ -65,8 +65,8 @@ export class CategoryController {
 
     async deleteHandler(req: NextRequest, params: { id: string }) {
         try {
-            const user = await getToken(req)
-            if (!user)
+            const userId = await getSessionToken()
+            if (!userId)
                 return Response.error("Não autorizado", 401)
 
             if (!params.id)
