@@ -1,7 +1,5 @@
-import { Response } from "next-lib-utils";
+import { AuthController } from "@/modules/auth/controller/auth-controller"
 
 export async function POST() {
-    const res = Response.success(null, "Logout feito com sucesso")
-    res.cookies.delete("token")
-    return res
+    return await new AuthController().logoutPostHandler()
 }
