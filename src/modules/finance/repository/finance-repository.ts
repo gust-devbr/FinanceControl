@@ -16,7 +16,7 @@ export class FinanceRepository {
                 name: { contains: query.search, mode: "insensitive" }
             },
             include: {
-                category: { select: { name: true, color: true } }
+                category: { select: { id: true, name: true, color: true } }
             },
             orderBy: { createdAt: "desc" }
         })

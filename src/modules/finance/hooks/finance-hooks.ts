@@ -5,14 +5,15 @@ import { QUERY_KEYS } from "@/lib/query-keys";
 import { queryClient } from "@/lib/query-client";
 
 import * as api from "../api/finance-api"
+import { FinanceQuery } from "../types";
 
 const onSuccess = () =>
     queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.finance] })
 
-export function useFinance() {
+export function useFinance(query?: FinanceQuery) {
     return useQuery({
-        queryKey: [QUERY_KEYS.finance],
-        queryFn: api.getFinances
+        queryKey: [QUERY_KEYS.finance, query],
+        queryFn: () => api.getFinances(query as FinanceQuery),
     })
 }
 

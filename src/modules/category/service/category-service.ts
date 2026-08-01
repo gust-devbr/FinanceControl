@@ -19,14 +19,19 @@ export class CategoryService {
         return await this.repository.create(userId, data)
     }
 
-    async update(id: string, data: DTO.UpdateCategorySchemaType) {
+    async update(data: DTO.UpdateCategorySchemaType) {
+        const { id, ...rest } = data
+
         const existingCategory =
             await this.repository.findById(id)
 
         if (!existingCategory)
             throw new Error("Categoria não encontrada.")
 
-        return await this.repository.update(id, data)
+        return await this.repository.update({
+            id: existingCategory.id,
+            ...rest
+        })
     }
 
     async delete(id: string) {

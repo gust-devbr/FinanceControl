@@ -28,12 +28,14 @@ export class CategoryRepository {
         await prisma.category.delete({ where: { id } })
     }
 
-    async update(id: string, data: DTO.UpdateCategorySchemaType) {
+    async update(data: DTO.UpdateCategorySchemaType) {
+        const { id, ...rest } = data
+
         return await prisma.category.update({
             where: { id },
             data: {
-                ...(data.name && { name: data.name }),
-                ...(data.color && { color: data.color })
+                ...(rest.name && { name: rest.name }),
+                ...(rest.color && { color: rest.color })
             }
         })
     }

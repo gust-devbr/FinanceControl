@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-export type MenuTypes = "account" | "secury"
+export type MenuTypes = "account"
 
 type MenuStory = {
     menu: MenuTypes

@@ -7,7 +7,7 @@ import { ApiResponse } from "@/@types/api/api-response"
 
 export async function getCategories(): Promise<CategoryResponse[]> {
     const { data } = await api.get("/private/category")
-    return data.categories
+    return data.data
 }
 
 export async function createCategory(data: DTO.CreateCategorySchemaType): Promise<ApiResponse> {

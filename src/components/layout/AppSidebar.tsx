@@ -1,5 +1,8 @@
 "use client"
 
+import { usePathname } from "next/navigation"
+import Link from "next/link"
+
 import {
     Sidebar,
     useSidebar,
@@ -9,44 +12,31 @@ import {
     SidebarMenuItem,
     SidebarMenuButton,
 } from "@/components/ui/sidebar"
-import {
-    Cog,
-    Wallet,
-    LogOut,
-    LucideIcon,
-    BringToFront,
-} from "lucide-react"
 import { Separator } from "../ui/separator"
+import * as Icon from "lucide-react"
+
 import { cn } from "@/lib/utils"
 
-import { usePathname, useRouter } from "next/navigation"
-import Link from "next/link"
-
-import { useLogout } from "@/modules/auth/hooks"
+import { useLogout } from "@/modules/auth/hooks/auth-hooks"
 
 type Routes = {
     name: string
     href: string
-    icon: LucideIcon
+    icon: Icon.LucideIcon
 }
 
 export function AppSidebar() {
     const logout = useLogout()
-    const router = useRouter()
+
     const { state } = useSidebar()
     const isCollapsed = state === "collapsed"
-
-    async function handleLogout() {
-        await logout.mutateAsync()
-        router.replace("/screens/login")
-    }
 
     const pathname = usePathname()
 
     const routes: Routes[] = [
-        { name: "Finanças", href: "/screens/home", icon: Wallet },
-        { name: "Categorias", href: "/screens/category", icon: BringToFront },
-        { name: "Configurações", href: "/screens/settings", icon: Cog },
+        { name: "Finanças", href: "/screens/home", icon: Icon.Wallet },
+        { name: "Categorias", href: "/screens/category", icon: Icon.BringToFront },
+        { name: "Configurações", href: "/screens/settings", icon: Icon.Cog },
     ]
 
     return (
@@ -102,10 +92,10 @@ export function AppSidebar() {
                         <SidebarMenuItem className="rounded-sm">
                             <SidebarMenuButton
                                 tooltip="Sair"
-                                onClick={handleLogout}
+                                onClick={() => logout.mutateAsync()}
                                 className="py-3 text-red-800 hover:text-red-700"
                             >
-                                <LogOut className={cn(
+                                <Icon.LogOut className={cn(
                                     isCollapsed ? "w-4! h-4!" : "w-5! h-5!",
                                 )}
                                 />

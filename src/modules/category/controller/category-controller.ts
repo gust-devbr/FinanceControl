@@ -51,11 +51,11 @@ export class CategoryController {
             if (!params.id)
                 return Response.error("ID não fornecido", 400)
 
-            const body =
+            const { color, name } =
                 schema.updateCategorySchema.parse(await req.json())
 
             const category =
-                await this.service.update(params.id, body)
+                await this.service.update({ id: params.id, name, color })
 
             return Response.success({ category }, "Categoria atualizada")
         } catch (error) {

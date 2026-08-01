@@ -1,8 +1,8 @@
 "use client"
 
-import { AccountCard } from "@/components/modules/profile/layout/card/AccountCard";
-import { PasswordManagerCard } from "@/components/modules/profile/layout/card/PasswordCard";
-import { MenuSelector } from "@/components/modules/profile/layout/menu/MenuSelector";
+import { SettingsMenuSelector } from "@/modules/settings/components/SettingsMenuSelector";
+import { UpdateAccountCard } from "@/modules/user/components/UpdateAccountCard";
+
 import { useMenuStore } from "@/store/use-menu-store";
 
 export default function ProfilePage() {
@@ -16,11 +16,10 @@ export default function ProfilePage() {
 
 
             <section className="flex md:flex-row flex-col gap-1">
-                <MenuSelector />
+                <SettingsMenuSelector />
 
                 <div className="w-full flex-1 h-full">
-                    {menu === "account" && <AccountCard />}
-                    {menu === "secury" && <PasswordManagerCard />}
+                    {menu === "account" && <UpdateAccountCard />}
                 </div>
             </section>
         </main>

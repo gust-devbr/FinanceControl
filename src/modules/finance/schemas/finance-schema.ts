@@ -15,6 +15,8 @@ export const createFinanceSchema = z.object({
 })
 
 export const updateFinanceSchema = z.object({
+    id: z.string(),
+
     name: z
         .string()
         .min(1, "Nome obrigatório")

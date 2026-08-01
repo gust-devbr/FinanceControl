@@ -6,7 +6,7 @@ import { DeleteUserSchemaType, UpdateUserSchemaType } from "../schemas/user-sche
 
 export async function getUser(): Promise<UserResponseType> {
     const { data } = await api.get("/private/me")
-    return data.user
+    return data.data
 }
 
 export async function updateUser(data: UpdateUserSchemaType): Promise<ApiResponse> {

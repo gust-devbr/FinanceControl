@@ -1,19 +1,29 @@
 import { Finance } from "@prisma/client"
 
 export interface FinanceQuery {
-    search: string
+    search?: string
     page: number
     limit: number
 }
 
-export interface FinanceResponse {
-    finances: Finance[]
-    pagination: {
-        page: number
-        limit: number
-        totalItems: number
-        totalPages: number
-        hasNextPage: boolean
-        hasPreviousPage: boolean
+export interface FinanceType extends Finance {
+    category: {
+        id: string
+        name: string
+        color: string
     }
 }
+
+export interface Pagination {
+    page: number
+    limit: number
+    totalItems: number
+    totalPages: number
+    hasNextPage: boolean
+    hasPreviousPage: boolean
+}
+
+export interface FinanceResponse {
+    finances: FinanceType[]
+    pagination: Pagination
+}   

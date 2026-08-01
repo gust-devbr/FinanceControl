@@ -1,6 +1,7 @@
-import { useCategory } from "@/modules/category/hooks"
-import { useFinance } from "@/modules/finance/hooks"
 import { useMemo } from "react"
+
+import { useCategory } from "@/modules/category/hooks/category-hooks"
+import { useFinance } from "@/modules/finance/hooks/finance-hooks"
 
 export function useCategoryChart() {
     const categories = useCategory()
@@ -10,7 +11,7 @@ export function useCategoryChart() {
         if (!categories.data || !finances.data)
             return []
 
-        const financeMap = finances.data.reduce(
+        const financeMap = finances?.data?.finances?.reduce(
             (acc, finance) => {
                 acc[finance.categoryId] =
                     (acc[finance.categoryId] || 0) +
@@ -21,7 +22,7 @@ export function useCategoryChart() {
             {} as Record<string, number>
         )
 
-        return categories.data.map(category => ({
+        return categories?.data?.map(category => ({
             name: category.name,
             fill: category.color,
             value: financeMap[category.id] || 0,
@@ -29,11 +30,11 @@ export function useCategoryChart() {
     }, [categories.data, finances.data])
 
     const biggestExpense = useMemo(() => {
-        const financesData = finances.data ?? []
+        const financesData = finances?.data?.finances ?? []
 
         if (!financesData.length) return null
 
-        return financesData.reduce((max, finance) =>
+        return financesData?.reduce((max, finance) =>
             finance.amount > max.amount
                 ? finance
                 : max
@@ -43,8 +44,8 @@ export function useCategoryChart() {
     const mostUsedCategory = useMemo(() => {
         if (!finances.data) return null
 
-        const categories = Object.values(
-            finances.data.reduce((acc, finance) => {
+        const categories = Object?.values(
+            finances?.data?.finances?.reduce((acc, finance) => {
                 if (!finance.category) return acc
 
                 const { id, name, color } = finance.category
@@ -64,13 +65,13 @@ export function useCategoryChart() {
                 name: string
                 color: string
                 count: number
-            }>)
+            }>) ?? {}
         )
 
         return categories.sort((a, b) => b.count - a.count)[0]
     }, [finances])
 
-    const total = chartData.reduce((sum, item) => sum + item.value, 0)
+    const total = chartData?.reduce((sum, item) => sum + item.value, 0)
 
     return {
         chartData,
